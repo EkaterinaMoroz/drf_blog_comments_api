@@ -9,7 +9,7 @@ class PostAdmin(admin.ModelAdmin):
 
 class CommentAdmin(admin.ModelAdmin):
     model = Comment
-
+    fields = ['body', 'author', 'post', 'parent_id']
 
 admin.site.register(Post, PostAdmin)
 admin.site.register(Comment, CommentAdmin)

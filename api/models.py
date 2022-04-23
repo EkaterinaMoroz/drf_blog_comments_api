@@ -22,12 +22,9 @@ class Comment(models.Model):
     author = models.ForeignKey(User, null=True, related_name='comments', on_delete=models.CASCADE)
     post = models.ForeignKey('Post', related_name='comments', on_delete=models.CASCADE)
     parent_id = models.ForeignKey("self", null=True, blank=True, on_delete=models.CASCADE)
-    thread_id = models.IntegerField(default=0, db_index=True)
-    level = models.SmallIntegerField(default=0)
+    thread_id = models.IntegerField(default=0, null=True)
+    level = models.IntegerField(default=0, null=True)
 
     class Meta:
         ordering = ('created',)
 
-    def get_replies(self):
-        """Получение всех ответов на комментарий"""
-        return Comment.objects.filter(thread_id=self.thread_id, parent_id__gt=self.pk)
